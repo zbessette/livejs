@@ -1,6 +1,11 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
+// SUppress Chromium logs
+app.commandLine.appendSwitch('disable-gpu'); // Disable GPU hardware acceleration
+app.commandLine.appendSwitch('log-level', '3'); // Suppress info/debug logs
+app.commandLine.appendSwitch('disable-software-rasterizer'); // Suppress rasterizer logs
+
 let mainWindow;
 
 app.on('ready', () => {
@@ -9,7 +14,7 @@ app.on('ready', () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
+      nodeIntegration: false,
       contextIsolation: true,
     },
   });
